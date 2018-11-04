@@ -18,7 +18,7 @@ class CardRight extends Component {
           <a href="#/" className="btn btn-twitter" title="Share on Twitter" rel="nofollow"
              onClick={((e) =>{tweet(this.props.app.tweet); e.preventDefault();})}>
             <i className="icon icon-inline icon-twitter-light "></i>
-            Tweet
+            Tweet1
           </a>
 
         </div>

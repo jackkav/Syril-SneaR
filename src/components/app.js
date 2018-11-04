@@ -1,39 +1,19 @@
-import React, {Component} from 'react'
-import { connect } from 'react-redux'
-import { fetchAppsIfNeeded } from '../redux/actions'
+import React, { Component } from "react";
+import useFetch from "../useFetch";
+import Card from "./card";
 
-import Card from './card'
+const App = () => {
+  let value = useFetch("assets/data.json");
+  const { loading, data } = value;
+  const apps = data || [];
+  let totalapps = apps.length;
+  return (
+    <div>
+      {loading && apps.length === 0 && <h2>Loading...</h2>}
+      {!loading && apps.length === 0 && <h2>Empty.</h2>}
+      <Card apps={apps} totalapps={totalapps} />
+    </div>
+  );
+};
 
-
-class App extends Component {
-
-  componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(fetchAppsIfNeeded())
-  }
-
-
-  render() {
-    const { isFetching, apps } = this.props
-    let totalapps = apps.length;
-
-    return (
-       <div>
-         {isFetching && apps.length === 0 && <h2>Loading...</h2>}
-         {!isFetching && apps.length === 0 && <h2>Empty.</h2>}
-         <Card apps={apps} totalapps={totalapps} />
-       </div>
-    );
-  }
-}
- 
-function mapStateToProps(state) {
-  const { isFetching, apps } = state
- 
-  return {
-    isFetching,
-    apps
-  }
-}
- 
-export default connect(mapStateToProps)(App)
+export default App;
